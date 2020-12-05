@@ -5,7 +5,7 @@ The WIX toolset is required to build the Windows Installer file.
 It can be downloaded from http://wixtoolset.org.
 
 ## Build Instructions
-Build the Cloud Print Connector binaries.  See https://github.com/google/cloud-print-connector/wiki/Build-from-source
+Build the Cloud Print Connector binaries.  See https://github.com/wolfjiang/cloud-print-connector/wiki/Build-from-source
 
 Update the dependencies.wxs file by running ./generate-dependencies.sh (in mingw64 bash shell).
 

@@ -20,9 +20,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/google/cloud-print-connector/cdd"
-	"github.com/google/cloud-print-connector/lib"
-	"github.com/google/cloud-print-connector/log"
+	"github.com/wolfjiang/cloud-print-connector/cdd"
+	"github.com/wolfjiang/cloud-print-connector/lib"
+	"github.com/wolfjiang/cloud-print-connector/log"
 )
 
 var (

@@ -13,8 +13,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/google/cloud-print-connector/lib"
 	"github.com/urfave/cli"
+	"github.com/wolfjiang/cloud-print-connector/lib"
 	"golang.org/x/sys/windows/svc"
 	"golang.org/x/sys/windows/svc/eventlog"
 	"golang.org/x/sys/windows/svc/mgr"
@@ -22,11 +22,11 @@ import (
 
 var windowsCommands = []*cli.Command{
 	&cli.Command{
-		Name:      "init",
-		Aliases:   []string{"i"},
-		Usage:     "Create a config file",
-		Action:    initConfigFile,
-		Flags:     commonInitFlags,
+		Name:    "init",
+		Aliases: []string{"i"},
+		Usage:   "Create a config file",
+		Action:  initConfigFile,
+		Flags:   commonInitFlags,
 	},
 	&cli.Command{
 		Name:   "install-event-log",

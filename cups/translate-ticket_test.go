@@ -15,8 +15,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/google/cloud-print-connector/cdd"
-	"github.com/google/cloud-print-connector/lib"
+	"github.com/wolfjiang/cloud-print-connector/cdd"
+	"github.com/wolfjiang/cloud-print-connector/lib"
 )
 
 func TestTranslateTicket(t *testing.T) {
@@ -284,7 +284,7 @@ func TestTranslateTicket_RicohLockedPrint(t *testing.T) {
 	if err != nil {
 		t.Logf("did not expect error %s", err)
 		t.Fail()
-	}	
+	}
 	if !reflect.DeepEqual(o, expected) {
 		t.Logf("expected\n %+v\ngot\n %+v", expected, o)
 		t.Fail()

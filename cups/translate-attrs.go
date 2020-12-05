@@ -15,8 +15,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/google/cloud-print-connector/cdd"
-	"github.com/google/cloud-print-connector/log"
+	"github.com/wolfjiang/cloud-print-connector/cdd"
+	"github.com/wolfjiang/cloud-print-connector/log"
 )
 
 // translateAttrs extracts a PrinterDescriptionSection, PrinterStateSection, name, default diplay name, UUID, and tags from maps of tags (CUPS attributes)
@@ -445,18 +445,18 @@ func convertCopies(printerTags map[string][]string) *cdd.Copies {
 
 var colorByKeyword = map[string]cdd.ColorOption{
 	"auto": cdd.ColorOption{
-		VendorID: attrPrintColorMode + internalKeySeparator + "auto",
-		Type:     cdd.ColorTypeAuto,
+		VendorID:                   attrPrintColorMode + internalKeySeparator + "auto",
+		Type:                       cdd.ColorTypeAuto,
 		CustomDisplayNameLocalized: cdd.NewLocalizedString("Auto"),
 	},
 	"color": cdd.ColorOption{
-		VendorID: attrPrintColorMode + internalKeySeparator + "color",
-		Type:     cdd.ColorTypeStandardColor,
+		VendorID:                   attrPrintColorMode + internalKeySeparator + "color",
+		Type:                       cdd.ColorTypeStandardColor,
 		CustomDisplayNameLocalized: cdd.NewLocalizedString("Color"),
 	},
 	"monochrome": cdd.ColorOption{
-		VendorID: attrPrintColorMode + internalKeySeparator + "monochrome",
-		Type:     cdd.ColorTypeStandardMonochrome,
+		VendorID:                   attrPrintColorMode + internalKeySeparator + "monochrome",
+		Type:                       cdd.ColorTypeStandardMonochrome,
 		CustomDisplayNameLocalized: cdd.NewLocalizedString("Monochrome"),
 	},
 }
@@ -479,8 +479,8 @@ func convertColorAttrs(printerTags map[string][]string) *cdd.Color {
 		var exists bool
 		if co, exists = colorByKeyword[color]; !exists {
 			co = cdd.ColorOption{
-				VendorID: attrPrintColorMode + internalKeySeparator + color,
-				Type:     cdd.ColorTypeCustomColor,
+				VendorID:                   attrPrintColorMode + internalKeySeparator + color,
+				Type:                       cdd.ColorTypeCustomColor,
 				CustomDisplayNameLocalized: cdd.NewLocalizedString(color),
 			}
 		}

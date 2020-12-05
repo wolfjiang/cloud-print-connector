@@ -14,7 +14,7 @@ import (
 	"reflect"
 
 	"github.com/urfave/cli"
-	"launchpad.net/go-xdg/v0"
+	"launchpad.net/go-xdg"
 )
 
 const (
@@ -181,7 +181,7 @@ var DefaultConfig = Config{
 	DisplayNamePrefix:         "",
 	PrinterBlacklist:          []string{},
 	PrinterWhitelist:          []string{},
-	LogLevel:                  "INFO",
+	LogLevel:                  "DEBUG",
 
 	LocalPortLow:  26000,
 	LocalPortHigh: 26999,

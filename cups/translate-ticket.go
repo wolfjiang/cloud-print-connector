@@ -15,8 +15,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/google/cloud-print-connector/cdd"
-	"github.com/google/cloud-print-connector/lib"
+	"github.com/wolfjiang/cloud-print-connector/cdd"
+	"github.com/wolfjiang/cloud-print-connector/lib"
 )
 
 var rVendorIDKeyValue = regexp.MustCompile(
@@ -33,10 +33,10 @@ func translateTicket(printer *lib.Printer, ticket *cdd.CloudJobTicket) (map[stri
 		if vti.ID == ricohPasswordVendorID {
 			if vti.Value == "" {
 				// do not add specific map of options for Ricoh vendor like ppdLockedPrintPassword or ppdJobType when password is empty
-				continue; 
+				continue
 			}
 			if !rRicohPasswordFormat.MatchString(vti.Value) {
-				return map[string]string{}, errors.New("Invalid password format")				
+				return map[string]string{}, errors.New("Invalid password format")
 			}
 		}
 

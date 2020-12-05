@@ -13,8 +13,8 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/google/cloud-print-connector/cdd"
-	"github.com/google/cloud-print-connector/log"
+	"github.com/wolfjiang/cloud-print-connector/cdd"
+	"github.com/wolfjiang/cloud-print-connector/log"
 )
 
 func TestGetUUID(t *testing.T) {
@@ -294,7 +294,7 @@ func TestConvertMarkers(t *testing.T) {
 			VendorID: "rainbow",
 			Type:     cdd.MarkerInk,
 			Color: &cdd.MarkerColor{
-				Type: cdd.MarkerColorCustom,
+				Type:                       cdd.MarkerColorCustom,
 				CustomDisplayNameLocalized: cdd.NewLocalizedString("rainbow"),
 			},
 		},
@@ -361,7 +361,7 @@ func TestConvertMarkers(t *testing.T) {
 			VendorID: "rainbow",
 			Type:     cdd.MarkerInk,
 			Color: &cdd.MarkerColor{
-				Type: cdd.MarkerColorCustom,
+				Type:                       cdd.MarkerColorCustom,
 				CustomDisplayNameLocalized: cdd.NewLocalizedString("rainbow"),
 			},
 		},

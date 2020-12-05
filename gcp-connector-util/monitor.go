@@ -15,8 +15,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/google/cloud-print-connector/lib"
 	"github.com/urfave/cli"
+	"github.com/wolfjiang/cloud-print-connector/lib"
 )
 
 func monitorConnector(context *cli.Context) error {

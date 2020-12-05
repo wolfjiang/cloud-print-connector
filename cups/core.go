@@ -23,8 +23,8 @@ import (
 	"time"
 	"unsafe"
 
-	"github.com/google/cloud-print-connector/lib"
-	"github.com/google/cloud-print-connector/log"
+	"github.com/wolfjiang/cloud-print-connector/lib"
+	"github.com/wolfjiang/cloud-print-connector/log"
 )
 
 const (

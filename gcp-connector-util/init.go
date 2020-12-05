@@ -20,10 +20,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/google/cloud-print-connector/gcp"
-	"github.com/google/cloud-print-connector/lib"
 	"github.com/google/uuid"
 	"github.com/urfave/cli"
+	"github.com/wolfjiang/cloud-print-connector/gcp"
+	"github.com/wolfjiang/cloud-print-connector/lib"
 
 	"golang.org/x/oauth2"
 )
@@ -302,7 +302,7 @@ func verifyRobotAccount(context *cli.Context, authCode string) (string, error) {
 		ClientID:     context.String("gcp-oauth-client-id"),
 		ClientSecret: context.String("gcp-oauth-client-secret"),
 		Endpoint: oauth2.Endpoint{
-			AuthURL: context.String("gcp-oauth-auth-url"),
+			AuthURL:  context.String("gcp-oauth-auth-url"),
 			TokenURL: context.String("gcp-oauth-token-url"),
 		},
 		RedirectURL: gcp.RedirectURL,

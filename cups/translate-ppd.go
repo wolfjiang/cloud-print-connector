@@ -14,9 +14,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/google/cloud-print-connector/cdd"
-	"github.com/google/cloud-print-connector/lib"
-	"github.com/google/cloud-print-connector/log"
+	"github.com/wolfjiang/cloud-print-connector/cdd"
+	"github.com/wolfjiang/cloud-print-connector/lib"
+	"github.com/wolfjiang/cloud-print-connector/log"
 )
 
 const (
@@ -515,8 +515,8 @@ func convertColorPPD(e entry) *cdd.Color {
 	if len(colorOptions) == 1 {
 		colorName := cleanupColorName(colorOptions[0].optionKeyword, colorOptions[0].translation)
 		co := cdd.ColorOption{
-			VendorID: e.mainKeyword + internalKeySeparator + colorOptions[0].optionKeyword,
-			Type:     cdd.ColorTypeStandardColor,
+			VendorID:                   e.mainKeyword + internalKeySeparator + colorOptions[0].optionKeyword,
+			Type:                       cdd.ColorTypeStandardColor,
 			CustomDisplayNameLocalized: cdd.NewLocalizedString(colorName),
 		}
 		c.Option = append(c.Option, co)
@@ -524,8 +524,8 @@ func convertColorPPD(e entry) *cdd.Color {
 		for _, o := range colorOptions {
 			colorName := cleanupColorName(o.optionKeyword, o.translation)
 			co := cdd.ColorOption{
-				VendorID: e.mainKeyword + internalKeySeparator + o.optionKeyword,
-				Type:     cdd.ColorTypeCustomColor,
+				VendorID:                   e.mainKeyword + internalKeySeparator + o.optionKeyword,
+				Type:                       cdd.ColorTypeCustomColor,
 				CustomDisplayNameLocalized: cdd.NewLocalizedString(colorName),
 			}
 			c.Option = append(c.Option, co)
@@ -535,8 +535,8 @@ func convertColorPPD(e entry) *cdd.Color {
 	if len(grayOptions) == 1 {
 		colorName := cleanupColorName(grayOptions[0].optionKeyword, grayOptions[0].translation)
 		co := cdd.ColorOption{
-			VendorID: e.mainKeyword + internalKeySeparator + grayOptions[0].optionKeyword,
-			Type:     cdd.ColorTypeStandardMonochrome,
+			VendorID:                   e.mainKeyword + internalKeySeparator + grayOptions[0].optionKeyword,
+			Type:                       cdd.ColorTypeStandardMonochrome,
 			CustomDisplayNameLocalized: cdd.NewLocalizedString(colorName),
 		}
 		c.Option = append(c.Option, co)
@@ -544,8 +544,8 @@ func convertColorPPD(e entry) *cdd.Color {
 		for _, o := range grayOptions {
 			colorName := cleanupColorName(o.optionKeyword, o.translation)
 			co := cdd.ColorOption{
-				VendorID: e.mainKeyword + internalKeySeparator + o.optionKeyword,
-				Type:     cdd.ColorTypeCustomMonochrome,
+				VendorID:                   e.mainKeyword + internalKeySeparator + o.optionKeyword,
+				Type:                       cdd.ColorTypeCustomMonochrome,
 				CustomDisplayNameLocalized: cdd.NewLocalizedString(colorName),
 			}
 			c.Option = append(c.Option, co)
@@ -555,8 +555,8 @@ func convertColorPPD(e entry) *cdd.Color {
 	for _, o := range otherOptions {
 		colorName := cleanupColorName(o.optionKeyword, o.translation)
 		co := cdd.ColorOption{
-			VendorID: e.mainKeyword + internalKeySeparator + o.optionKeyword,
-			Type:     cdd.ColorTypeCustomMonochrome,
+			VendorID:                   e.mainKeyword + internalKeySeparator + o.optionKeyword,
+			Type:                       cdd.ColorTypeCustomMonochrome,
 			CustomDisplayNameLocalized: cdd.NewLocalizedString(colorName),
 		}
 		c.Option = append(c.Option, co)

@@ -19,8 +19,8 @@ import (
 	"sync"
 	"unsafe"
 
-	"github.com/google/cloud-print-connector/cdd"
-	"github.com/google/cloud-print-connector/lib"
+	"github.com/wolfjiang/cloud-print-connector/cdd"
+	"github.com/wolfjiang/cloud-print-connector/lib"
 )
 
 // This isn't really a cache, but an interface to CUPS' quirky PPD interface.

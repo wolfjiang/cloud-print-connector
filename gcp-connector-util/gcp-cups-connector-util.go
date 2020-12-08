@@ -16,7 +16,7 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/urfave/cli"
+	"github.com/urfave/cli/v2"
 	"github.com/wolfjiang/cloud-print-connector/cdd"
 	"github.com/wolfjiang/cloud-print-connector/gcp"
 	"github.com/wolfjiang/cloud-print-connector/lib"

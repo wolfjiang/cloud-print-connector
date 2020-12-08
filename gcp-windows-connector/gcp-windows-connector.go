@@ -14,7 +14,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/urfave/cli"
+	"github.com/urfave/cli/v2"
 	"github.com/wolfjiang/cloud-print-connector/fcm"
 	"github.com/wolfjiang/cloud-print-connector/gcp"
 	"github.com/wolfjiang/cloud-print-connector/lib"

@@ -21,7 +21,7 @@ import (
 	"time"
 
 	"github.com/google/uuid"
-	"github.com/urfave/cli"
+	"github.com/urfave/cli/v2"
 	"github.com/wolfjiang/cloud-print-connector/gcp"
 	"github.com/wolfjiang/cloud-print-connector/lib"
 

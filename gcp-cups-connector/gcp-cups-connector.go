@@ -19,7 +19,7 @@ import (
 	"time"
 
 	"github.com/coreos/go-systemd/journal"
-	"github.com/urfave/cli"
+	"github.com/urfave/cli/v2"
 	"github.com/wolfjiang/cloud-print-connector/cups"
 	"github.com/wolfjiang/cloud-print-connector/fcm"
 	"github.com/wolfjiang/cloud-print-connector/gcp"

@@ -26,6 +26,7 @@ import (
 
 	"golang.org/x/oauth2"
 
+	"github.com/denisbrodbeck/machineid"
 	"github.com/wolfjiang/cloud-print-connector/cdd"
 	"github.com/wolfjiang/cloud-print-connector/lib"
 	"github.com/wolfjiang/cloud-print-connector/log"
@@ -62,24 +63,32 @@ type GoogleCloudPrint struct {
 
 // NewGoogleCloudPrint establishes a connection with GCP, returns a new GoogleCloudPrint object.
 func NewGoogleCloudPrint(baseURL, robotRefreshToken, userRefreshToken, proxyName, oauthClientID, oauthClientSecret, oauthAuthURL, oauthTokenURL string, maxConcurrentDownload uint, jobs chan<- *lib.Job, useFcm bool) (*GoogleCloudPrint, error) {
-	robotClient, err := newClient(oauthClientID, oauthClientSecret, oauthAuthURL, oauthTokenURL, robotRefreshToken, ScopeCloudPrint, ScopeGoogleTalk)
-	if err != nil {
-		return nil, err
-	}
-
-	var userClient *http.Client
-	if userRefreshToken != "" {
-		userClient, err = newClient(oauthClientID, oauthClientSecret, oauthAuthURL, oauthTokenURL, userRefreshToken, ScopeCloudPrint)
+	/*
+		robotClient, err := newClient(oauthClientID, oauthClientSecret, oauthAuthURL, oauthTokenURL, robotRefreshToken, ScopeCloudPrint, ScopeGoogleTalk)
 		if err != nil {
 			return nil, err
 		}
-	}
 
+		var userClient *http.Client
+		if userRefreshToken != "" {
+			userClient, err = newClient(oauthClientID, oauthClientSecret, oauthAuthURL, oauthTokenURL, userRefreshToken, ScopeCloudPrint)
+			if err != nil {
+				return nil, err
+			}
+		}
+	*/
+	//TODO 使用httpClient
+	mid, err := machineid.ID()
+	if err != nil {
+		return nil, err
+	}
+	robotClient := &http.Client{}
+	userClient := &http.Client{}
 	gcp := &GoogleCloudPrint{
 		baseURL:           baseURL,
 		robotClient:       robotClient,
 		userClient:        userClient,
-		proxyName:         proxyName,
+		proxyName:         mid,
 		useFcm:            useFcm,
 		jobs:              jobs,
 		downloadSemaphore: lib.NewSemaphore(maxConcurrentDownload),
@@ -98,7 +107,8 @@ func (gcp *GoogleCloudPrint) GetRobotAccessToken() (string, error) {
 
 // CanShare answers the question "can we share printers when they are registered?"
 func (gcp *GoogleCloudPrint) CanShare() bool {
-	return gcp.userClient != nil
+	return false
+	//return gcp.userClient != nil
 }
 
 // Control calls google.com/cloudprint/control to set the state of a
@@ -389,16 +399,18 @@ func (gcp *GoogleCloudPrint) Update(diff *lib.PrinterDiff) error {
 			form.Add("tag", fmt.Sprintf("%s%s=%s", gcpTagPrefix, key, diff.Printer.Tags[key]))
 		}
 
-		form.Set("remove_tag", gcpTagPrefix+".*")
+		//form.Set("remove_tag", gcpTagPrefix+".*")
 	}
 
-	if diff.QuotaEnabledChanged {
-		form.Set("quota_enabled", strconv.FormatBool(diff.Printer.QuotaEnabled))
-	}
+	/*
+		if diff.QuotaEnabledChanged {
+			form.Set("quota_enabled", strconv.FormatBool(diff.Printer.QuotaEnabled))
+		}
 
-	if diff.DailyQuotaChanged {
-		form.Set("daily_quota", strconv.Itoa(diff.Printer.DailyQuota))
-	}
+		if diff.DailyQuotaChanged {
+			form.Set("daily_quota", strconv.Itoa(diff.Printer.DailyQuota))
+		}
+	*/
 
 	if _, _, _, err := postWithRetry(gcp.robotClient, gcp.baseURL+"update", form); err != nil {
 		return err

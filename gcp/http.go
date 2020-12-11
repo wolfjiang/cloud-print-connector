@@ -135,13 +135,17 @@ func postWithRetry(hc *http.Client, url string, form url.Values) ([]byte, uint, 
 // Returns the response body, GCP error code, HTTP status, and error.
 // None of the returned fields is guaranteed to be non-zero.
 func post(hc *http.Client, url string, form url.Values) ([]byte, uint, int, error) {
-	requestBody := strings.NewReader(form.Encode())
+	//requestBody := strings.NewReader(form.Encode())
+	body, _ := json.Marshal(form)
+	fmt.Println(string(body))
+	requestBody := strings.NewReader(string(body))
 	request, err := http.NewRequest("POST", url, requestBody)
 	if err != nil {
 		return nil, 0, 0, err
 	}
-	request.Header.Set("Content-Type", "application/x-www-form-urlencoded")
+	request.Header.Set("Content-Type", "application/json")
 	request.Header.Set("X-CloudPrint-Proxy", lib.ShortName)
+	request.Header.Set("Tenant-Id", "1")
 
 	lock.Acquire()
 	response, err := hc.Do(request)

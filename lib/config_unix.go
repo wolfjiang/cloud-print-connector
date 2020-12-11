@@ -159,8 +159,8 @@ type Config struct {
 // Omitted Config fields are omitted on purpose; they are unique per
 // connector instance.
 var DefaultConfig = Config{
-	LocalPrintingEnable:    true,
-	CloudPrintingEnable:    false,
+	LocalPrintingEnable:    false,
+	CloudPrintingEnable:    true,
 	FcmNotificationsEnable: false,
 
 	XMPPServer:                "talk.google.com",
@@ -168,11 +168,11 @@ var DefaultConfig = Config{
 	XMPPPingTimeout:           "5s",
 	XMPPPingInterval:          "2m",
 	FcmServerBindUrl:          "https://fcm-stream.googleapis.com/fcm/connect/bind",
-	GCPBaseURL:                "https://www.google.com/cloudprint/",
-	GCPOAuthClientID:          "539833558011-35iq8btpgas80nrs3o7mv99hm95d4dv6.apps.googleusercontent.com",
-	GCPOAuthClientSecret:      "V9BfPOvdiYuw12hDx5Y5nR0a",
-	GCPOAuthAuthURL:           "https://accounts.google.com/o/oauth2/auth",
-	GCPOAuthTokenURL:          "https://accounts.google.com/o/oauth2/token",
+	GCPBaseURL:                "http://localhost:8082/baseapp/cloudprint/",
+	GCPOAuthClientID:          "77hubcloudprint",
+	GCPOAuthClientSecret:      "testsecret",
+	GCPOAuthAuthURL:           "http://localhost:8082/baseapp/cloudprint/oauth2/auth",
+	GCPOAuthTokenURL:          "http://localhost:8082/baseapp/cloudprint/oauth2/token",
 	GCPMaxConcurrentDownloads: 5,
 
 	NativeJobQueueSize:        3,

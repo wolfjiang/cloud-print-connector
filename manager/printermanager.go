@@ -134,11 +134,43 @@ func NewPrinterManager(native NativePrintSystem, gcp *gcp.GoogleCloudPrint, priv
 		}
 	}
 
+	//pm.syncPrintJobPeriodically(notifications)
+
 	return &pm, nil
 }
 
 func (pm *PrinterManager) Quit() {
 	close(pm.quit)
+}
+
+func (pm *PrinterManager) syncPrintJobPeriodically(notifications <-chan notification.PrinterNotification) {
+	go func() {
+		interval := 10 * time.Millisecond
+		t := time.NewTimer(interval)
+		defer t.Stop()
+
+		for {
+			select {
+			case <-t.C:
+				if err := pm.SyncPrintJob(notifications); err != nil {
+					log.Error(err)
+				}
+				t.Reset(interval)
+
+			case <-pm.quit:
+				return
+			}
+		}
+	}()
+}
+
+func (pm *PrinterManager) SyncPrintJob(notifications <-chan notification.PrinterNotification) error {
+	// for gcpPrinterID := range queuedJobsCount {
+	// 	p, _ := pm.printers.GetByGCPID(gcpPrinterID)
+	// 	go pm.gcp.HandleJobs(&p, func() { pm.incrementJobsProcessed(false) })
+	// }
+	//todo 生成打印任务消息
+	return nil
 }
 
 func (pm *PrinterManager) syncPrintersPeriodically(interval time.Duration) {

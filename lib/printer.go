@@ -209,22 +209,24 @@ func diffPrinter(pn, pg *Printer) PrinterDiff {
 		d.TagsChanged = true
 	}
 
-	if !reflect.DeepEqual(pg.DuplexMap, pn.DuplexMap) {
-		d.DuplexMapChanged = true
-	}
+	//TODO 注释不需要检查的项目
+	/*
+		if !reflect.DeepEqual(pg.DuplexMap, pn.DuplexMap) {
+			d.DuplexMapChanged = true
+		}
 
-	if pg.QuotaEnabled != pn.QuotaEnabled {
-		d.QuotaEnabledChanged = true
-	}
+		if pg.QuotaEnabled != pn.QuotaEnabled {
+			d.QuotaEnabledChanged = true
+		}
 
-	if pg.DailyQuota != pn.DailyQuota {
-		d.DailyQuotaChanged = true
-	}
+		if pg.DailyQuota != pn.DailyQuota {
+			d.DailyQuotaChanged = true
+		}
 
-	if pg.NotificationChannel != pn.NotificationChannel {
-		d.NotificationChannelChanged = true
-	}
-
+		if pg.NotificationChannel != pn.NotificationChannel {
+			d.NotificationChannelChanged = true
+		}
+	*/
 	if d.DefaultDisplayNameChanged || d.ManufacturerChanged || d.ModelChanged ||
 		d.GCPVersionChanged || d.SetupURLChanged || d.SupportURLChanged ||
 		d.UpdateURLChanged || d.ConnectorVersionChanged || d.StateChanged ||

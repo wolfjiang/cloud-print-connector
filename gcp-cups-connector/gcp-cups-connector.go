@@ -29,7 +29,6 @@ import (
 	"github.com/wolfjiang/cloud-print-connector/monitor"
 	"github.com/wolfjiang/cloud-print-connector/notification"
 	"github.com/wolfjiang/cloud-print-connector/privet"
-	"github.com/wolfjiang/cloud-print-connector/xmpp"
 )
 
 func main() {
@@ -119,9 +118,10 @@ func connector(context *cli.Context) error {
 	notifications := make(chan notification.PrinterNotification, 5)
 
 	var g *gcp.GoogleCloudPrint
-	var x *xmpp.XMPP
+	//var x *xmpp.XMPP
 	var f *fcm.FCM
 	if config.CloudPrintingEnable {
+		/* TODO 暂时不用消息
 		xmppPingTimeout, err := time.ParseDuration(config.XMPPPingTimeout)
 		if err != nil {
 			errStr := fmt.Sprintf("Failed to parse xmpp ping timeout: %s", err)
@@ -134,6 +134,7 @@ func connector(context *cli.Context) error {
 			log.Fatalf(errStr)
 			return cli.NewExitError(errStr, 1)
 		}
+		*/
 
 		g, err = gcp.NewGoogleCloudPrint(config.GCPBaseURL, config.RobotRefreshToken,
 			config.UserRefreshToken, config.ProxyName, config.GCPOAuthClientID,
@@ -143,6 +144,7 @@ func connector(context *cli.Context) error {
 			log.Fatal(err)
 			return cli.NewExitError(err.Error(), 1)
 		}
+		/* TODO 暂时不用消息
 		if useFcm {
 			f, err = fcm.NewFCM(config.GCPOAuthClientID, config.ProxyName, config.FcmServerBindUrl, g.FcmSubscribe, notifications)
 			if err != nil {
@@ -159,6 +161,7 @@ func connector(context *cli.Context) error {
 			}
 			defer x.Quit()
 		}
+		*/
 	}
 
 	cupsConnectTimeout, err := time.ParseDuration(config.CUPSConnectTimeout)

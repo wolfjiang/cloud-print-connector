@@ -10,7 +10,7 @@ require (
 	golang.org/x/oauth2 v0.0.0-20201203001011-0b49973bad19
 	golang.org/x/sys v0.0.0-20200803210538-64077c9b5642
 	launchpad.net/go-xdg v0.0.0-20140208094800-000000000010
-	launchpad.net/gocheck v0.0.0-20140225173054-000000000087
+	launchpad.net/gocheck v0.0.0-20140225173054-000000000087 // indirect
 )
 
 replace github.com/coreos/go-systemd => github.com/coreos/go-systemd/v22 v22.1.0

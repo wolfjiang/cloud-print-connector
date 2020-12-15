@@ -199,6 +199,26 @@ func (gcp *GoogleCloudPrint) Fetch(gcpID string) ([]Job, error) {
 	return jobs, nil
 }
 
+// QueuedPrinters calls google.com/cloudprint/QueuedPrinters to get GCP printer ids with queued task.
+func (gcp *GoogleCloudPrint) QueuedPrinters() ([]string, error) {
+	form := url.Values{}
+	form.Set("proxy", gcp.proxyName)
+
+	responseBody, _, _, err := postWithRetry(gcp.robotClient, gcp.baseURL+"queuedPrinters", form)
+	if err != nil {
+		return nil, err
+	}
+
+	var listData struct {
+		PrinterIds []string `json:"printerIds"`
+	}
+	if err = json.Unmarshal(responseBody, &listData); err != nil {
+		return nil, err
+	}
+
+	return listData.PrinterIds, nil
+}
+
 // Jobs calls google.com/cloudprint/jobs to get print jobs for a GCP printer.
 func (gcp *GoogleCloudPrint) Jobs(gcpID string) ([]Job, error) {
 	form := url.Values{}

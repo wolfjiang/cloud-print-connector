@@ -134,7 +134,7 @@ func NewPrinterManager(native NativePrintSystem, gcp *gcp.GoogleCloudPrint, priv
 		}
 	}
 
-	//pm.syncPrintJobPeriodically(notifications)
+	pm.syncPrintJobPeriodically(notifications)
 
 	return &pm, nil
 }
@@ -145,7 +145,7 @@ func (pm *PrinterManager) Quit() {
 
 func (pm *PrinterManager) syncPrintJobPeriodically(notifications <-chan notification.PrinterNotification) {
 	go func() {
-		interval := 10 * time.Millisecond
+		interval := 5 * time.Second
 		t := time.NewTimer(interval)
 		defer t.Stop()
 
@@ -154,9 +154,10 @@ func (pm *PrinterManager) syncPrintJobPeriodically(notifications <-chan notifica
 			case <-t.C:
 				if err := pm.SyncPrintJob(notifications); err != nil {
 					log.Error(err)
+					t.Reset(30 * time.Second)
+				} else {
+					t.Reset(interval)
 				}
-				t.Reset(interval)
-
 			case <-pm.quit:
 				return
 			}
@@ -165,11 +166,18 @@ func (pm *PrinterManager) syncPrintJobPeriodically(notifications <-chan notifica
 }
 
 func (pm *PrinterManager) SyncPrintJob(notifications <-chan notification.PrinterNotification) error {
-	// for gcpPrinterID := range queuedJobsCount {
-	// 	p, _ := pm.printers.GetByGCPID(gcpPrinterID)
-	// 	go pm.gcp.HandleJobs(&p, func() { pm.incrementJobsProcessed(false) })
-	// }
-	//todo 生成打印任务消息
+	//取得有打印任务的打印机ID
+	printerIds, err := pm.gcp.QueuedPrinters()
+	fmt.Printf("Sync Print Job : %+v", printerIds)
+	if err != nil {
+		return err
+	}
+	for _, id := range printerIds {
+		p, ok := pm.printers.GetByGCPID(id)
+		if ok {
+			go pm.gcp.HandleJobs(&p, func() { pm.incrementJobsProcessed(false) })
+		}
+	}
 	return nil
 }
 
